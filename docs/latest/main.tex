@@ -1,3 +1,733 @@
-% Snapshot placeholder: latest LaTeX reference will live here on GitHub Pages.
-% Replace this file during deployment with the current main.tex from the repository.
+\documentclass[12pt,a4paper,oneside]{book}
 
+% Essential packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage[hypertexnames=false]{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta,shapes.geometric,fit,calc}
+\usetikzlibrary{arrows.meta,shapes.geometric}
+% TikZ styles for diary diagrams
+\tikzset{
+  diarybox/.style={draw=primaryblue, fill=lightgray, rounded corners,
+    minimum width=2.8cm, text width=2.6cm, align=center, inner sep=6pt,
+    font=\footnotesize},
+  diaryarrow/.style={-Stealth, thick, draw=primaryblue},
+  laneTitle/.style={draw=primaryblue, fill=primaryblue, text=white,
+    rounded corners, minimum width=2.2cm, text width=2.0cm, align=center,
+    inner sep=4pt, font=\bfseries\footnotesize},
+  laneArea/.style={draw=lightgray, rounded corners},
+  laneBox/.style={diarybox}
+}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multicol}
+\usepackage{datetime}
+\usepackage{ifthen}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage{fontawesome5}
+% Microtype without patch to avoid warnings
+\usepackage[nopatch]{microtype}
+\usepackage{setspace}
+\usepackage{lineno}
+\usepackage{amssymb}
+\usepackage{eso-pic}
+\usepackage{tikzpagenodes}
+\usepackage{qrcode}
+\usepackage{pifont} % For checkmark symbols
+\usepackage{lastpage}
+\usepackage{lastpage}
+
+% Page geometry for single-sided binding with professional margins
+\geometry{
+    left=4cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=5.2cm,
+    bindingoffset=0cm,
+    headheight=25pt,
+    footskip=7.0cm,
+    marginparwidth=0pt,
+    marginparsep=0pt
+}
+
+% Relax line-breaking to avoid over/underfull hbox warnings
+\emergencystretch=1.5em
+\sloppy
+\hbadness=10000
+\hfuzz=15pt
+
+% Color definitions
+\definecolor{primaryblue}{RGB}{41, 128, 185}
+\definecolor{darkgray}{RGB}{52, 73, 94}
+\definecolor{lightgray}{RGB}{236, 240, 241}
+\definecolor{approvalgreen}{RGB}{39, 174, 96}
+\definecolor{weatherblue}{RGB}{46, 204, 113}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    filecolor=primaryblue,
+    urlcolor=primaryblue,
+    citecolor=primaryblue,
+    pdftitle={Internship Diary},
+    pdfauthor={Intern},
+    pdfsubject={Daily Internship Log},
+    pdfkeywords={internship, diary, daily log},
+    bookmarksopen=true,
+    bookmarksopenlevel=2
+}
+
+% Custom fonts
+\usepackage{lmodern}
+\usepackage[scaled=0.9]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Professional page borders and headers
+\usepackage{eso-pic}
+\usepackage{tikzpagenodes}
+
+% Double border with margin ticks
+\AddToShipoutPicture{%
+    \begin{tikzpicture}[remember picture, overlay]
+        % Outer border (thick)
+        \draw[line width=1.5pt, primaryblue] ([xshift=15mm,yshift=-15mm]current page.north west) rectangle ([xshift=-15mm,yshift=15mm]current page.south east);
+        % Inner border (thin) 
+        \draw[line width=0.8pt, primaryblue] ([xshift=18mm,yshift=-18mm]current page.north west) rectangle ([xshift=-18mm,yshift=18mm]current page.south east);
+        
+        % Margin ticks - Left side
+        \foreach \y in {0.1,0.2,...,0.9} {
+            \draw[line width=0.5pt, primaryblue] ([xshift=15mm,yshift=-\y*\paperheight]current page.north west) -- ([xshift=18mm,yshift=-\y*\paperheight]current page.north west);
+        }
+        % Margin ticks - Right side  
+        \foreach \y in {0.1,0.2,...,0.9} {
+            \draw[line width=0.5pt, primaryblue] ([xshift=-15mm,yshift=-\y*\paperheight]current page.north east) -- ([xshift=-18mm,yshift=-\y*\paperheight]current page.north east);
+        }
+        % Margin ticks - Top
+        \foreach \x in {0.1,0.2,...,0.9} {
+            \draw[line width=0.5pt, primaryblue] ([xshift=\x*\paperwidth,yshift=-15mm]current page.north west) -- ([xshift=\x*\paperwidth,yshift=-18mm]current page.north west);
+        }
+        % Margin ticks - Bottom
+        \foreach \x in {0.1,0.2,...,0.9} {
+            \draw[line width=0.5pt, primaryblue] ([xshift=\x*\paperwidth,yshift=15mm]current page.south west) -- ([xshift=\x*\paperwidth,yshift=18mm]current page.south west);
+        }
+
+        % Technical corner markers (45° corner accents inside frame)
+        % Define outer border corners for reuse
+        \coordinate (outerNW) at ([xshift=15mm,yshift=-15mm]current page.north west);
+        \coordinate (outerNE) at ([xshift=-15mm,yshift=-15mm]current page.north east);
+        \coordinate (outerSE) at ([xshift=-15mm,yshift=15mm]current page.south east);
+        \coordinate (outerSW) at ([xshift=15mm,yshift=15mm]current page.south west);
+
+        % Corner 45° double-lines (primary + secondary) — NW
+        \draw[line width=0.9pt, primaryblue] (outerNW) -- ([xshift=6mm,yshift=-6mm] outerNW);
+        \draw[line width=0.6pt, primaryblue] ([xshift=2mm,yshift=-2mm] outerNW) -- ([xshift=8mm,yshift=-8mm] outerNW);
+        % NE
+        \draw[line width=0.9pt, primaryblue] (outerNE) -- ([xshift=-6mm,yshift=-6mm] outerNE);
+        \draw[line width=0.6pt, primaryblue] ([xshift=-2mm,yshift=-2mm] outerNE) -- ([xshift=-8mm,yshift=-8mm] outerNE);
+        % SE
+        \draw[line width=0.9pt, primaryblue] (outerSE) -- ([xshift=-6mm,yshift=6mm] outerSE);
+        \draw[line width=0.6pt, primaryblue] ([xshift=-2mm,yshift=2mm] outerSE) -- ([xshift=-8mm,yshift=8mm] outerSE);
+        % SW
+        \draw[line width=0.9pt, primaryblue] (outerSW) -- ([xshift=6mm,yshift=6mm] outerSW);
+        \draw[line width=0.6pt, primaryblue] ([xshift=2mm,yshift=2mm] outerSW) -- ([xshift=8mm,yshift=8mm] outerSW);
+        
+        % Confidentiality marking (diagonal, center of page) — subtle for readability
+        \node[rotate=45, anchor=center, font=\large\bfseries, color=red!15, opacity=0.12] at (current page.center) {\textsc{Confidentiality Level: Within the University}};
+        % Small tick mark next to confidentiality — match subtle style
+        \node[font=\Large, color=red!15, opacity=0.12] at ([xshift=-4cm,yshift=0.5cm]current page.center) {\ding{51}};
+
+        % Outer-edge vertical legends (professional side labels)
+        % Left side (just outside outer border), bottom-to-top
+        \node[rotate=90, anchor=center, font=\small\bfseries, color=darkgray]
+            at ([xshift=13mm]current page.west |- current page.center)
+            {Izmir Institute of Technology — Engineering Faculty — Civil Engineering Department};
+        % Right side (just outside outer border), bottom-to-top
+        \node[rotate=90, anchor=center, font=\small\bfseries, color=darkgray]
+            at ([xshift=-13mm]current page.east |- current page.center)
+            {Izmir Institute of Technology — Engineering Faculty — Civil Engineering Department};
+        % Bottom-left technical footer (outside frame; nudged right)
+        \node[anchor=west, font=\scriptsize\bfseries, color=darkgray]
+            at ([xshift=15mm,yshift=12mm]current page.south west)
+            {Doc: Internship Diary • Rev 1.0};
+        % Per-day page indicator (outside bottom-right frame; nudged left)
+        \node[anchor=east, font=\scriptsize\bfseries, color=darkgray]
+            at ([xshift=-15mm,yshift=12mm]current page.south east) {\printdayfooter};
+        % Compact sheet code label (mirrored above per-day counter)
+        \node[anchor=east, font=\scriptsize\bfseries, color=darkgray]
+            at ([xshift=-15mm,yshift=22mm]current page.south east) {Sheet: \docid};
+
+        % QR codes for verification (outside outer frame)
+        % Define document ID for QR link
+        \newcommand{\docid}{IZTECH-INT-2025-09-05-D10}
+        % Left QR (outside frame, centered in band between frame and page edge)
+        \node[anchor=center] at ([xshift=7.5mm,yshift=7.5mm]current page.south west)
+            {\qrcode[height=12mm]{https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=\docid}};
+        % Right QR (outside frame, centered in band between frame and page edge)
+        \node[anchor=center] at ([xshift=-7.5mm,yshift=7.5mm]current page.south east)
+            {\qrcode[height=12mm]{https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=\docid}};
+    \end{tikzpicture}
+}
+
+% Page headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{primaryblue}{\textbf{Internship Diary}}}
+\fancyhead[R]{\textcolor{primaryblue}{\textbf{\leftmark}}}
+\fancyhead[C]{\textcolor{darkgray}{Page \thepage\ of \pageref{LastPage}}}
+% Align header/footer width with inner frame (paper width minus 36mm)
+\setlength{\headwidth}{\paperwidth}
+\fancyhfoffset[L]{\dimexpr 40mm-18mm\relax} % extend into left margin by (left margin - 18mm)
+\fancyhfoffset[R]{\dimexpr 25mm-18mm\relax} % extend into right margin by (right margin - 18mm)
+\fancyfootoffset[L]{\dimexpr 40mm-18mm\relax}
+\fancyfootoffset[R]{\dimexpr 25mm-18mm\relax}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{primaryblue}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{primaryblue}\leaders\hrule height \footrulewidth\hfill}}
+
+% Default empty footer (will be updated by dayentry command)
+\fancyfoot[L]{}
+\fancyfoot[C]{}  
+\fancyfoot[R]{}
+
+% Chapter and section formatting
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{primaryblue}}
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{darkgray}}
+{\thesection}{1em}{}
+
+% Table of contents formatting
+\renewcommand{\cftchapfont}{\bfseries\color{primaryblue}}
+\renewcommand{\cftsecfont}{\color{darkgray}}
+\renewcommand{\cftchappagefont}{\bfseries\color{primaryblue}}
+
+% Variables to store current day's subject and date
+\newcommand{\currentsubject}{}
+\newcommand{\currentdate}{}
+
+% Commands to set subject and date
+\newcommand{\setdaysubject}[1]{\renewcommand{\currentsubject}{#1}}
+\newcommand{\setdaydate}[1]{\renewcommand{\currentdate}{#1}}
+
+% Professional footer with improved spacing and styling
+\newcommand{\updatefooter}{%
+    % Apply footer to standard fancy pages
+    \fancyfoot[L]{%
+        \raisebox{6.2cm}{\begin{minipage}[t]{0.28\textwidth}
+            \centering
+            {\scriptsize\bfseries\color{primaryblue} SUBJECT:} \\[0.1cm]
+            \rule{4cm}{0.8pt} \\[0.1cm]
+            \parbox[t]{4cm}{\centering\footnotesize \currentsubject} \\[0.1cm]
+            \rule{4cm}{0.8pt}
+        \end{minipage}}%
+    }
+    \fancyfoot[C]{%
+        \hspace*{-0.7cm}% shift DATE block slightly left
+        \raisebox{6.2cm}{\begin{minipage}[t]{0.26\textwidth}
+            \centering
+            {\scriptsize\bfseries\color{primaryblue} DATE:} \\[0.1cm]
+            \rule{3.0cm}{0.8pt} \\[0.1cm]
+            {\footnotesize \currentdate} \\[0.1cm]
+            \rule{3.0cm}{0.8pt}
+        \end{minipage}}%
+    }
+    \fancyfoot[R]{%
+        \raisebox{6.2cm}{\begin{minipage}[t]{0.40\textwidth}
+            \centering
+            {\scriptsize\bfseries\color{primaryblue} AUTHORIZED ENGINEER} \\
+            {\scriptsize\bfseries\color{primaryblue} SIGNATURE \& STAMP:} \\[0.2cm]
+            \rule{4.5cm}{0.8pt} \\[0.2cm]
+            \rule{4.5cm}{0.8pt}
+        \end{minipage}}%
+    }
+    % Ensure chapter-opening (plain) pages also show the same footer
+        \fancypagestyle{plain}{%
+        \fancyhf{}
+        \renewcommand{\headrulewidth}{1pt}
+        \renewcommand{\footrulewidth}{1pt}
+        \renewcommand{\headrule}{\hbox to\headwidth{\color{primaryblue}\leaders\hrule height \headrulewidth\hfill}}
+        \renewcommand{\footrule}{\hbox to\headwidth{\color{primaryblue}\leaders\hrule height \footrulewidth\hfill}}
+        % Mirror standard header content on chapter-opening pages
+        \fancyhead[L]{\textcolor{primaryblue}{\textbf{Internship Diary}}}
+        \fancyhead[R]{\textcolor{primaryblue}{\textbf{\leftmark}}}
+        \fancyhead[C]{\textcolor{darkgray}{Page \thepage\ of \pageref{LastPage}}}
+        % Ensure same offsets on plain pages
+        \setlength{\headwidth}{\paperwidth}
+        \fancyhfoffset[L]{\dimexpr 40mm-18mm\relax}
+        \fancyhfoffset[R]{\dimexpr 25mm-18mm\relax}
+        \fancyfootoffset[L]{\dimexpr 40mm-18mm\relax}
+        \fancyfootoffset[R]{\dimexpr 25mm-18mm\relax}
+        \fancyfoot[L]{%
+            \raisebox{6.2cm}{\begin{minipage}[t]{0.28\textwidth}
+                \centering
+                {\scriptsize\bfseries\color{primaryblue} SUBJECT:} \\[0.1cm]
+                \rule{4cm}{0.8pt} \\[0.1cm]
+                \parbox[t]{4cm}{\centering\footnotesize \currentsubject} \\[0.1cm]
+                \rule{4cm}{0.8pt}
+            \end{minipage}}%
+        }
+        \fancyfoot[C]{%
+            \hspace*{-0.7cm}% shift DATE block slightly left
+            \raisebox{6.2cm}{\begin{minipage}[t]{0.26\textwidth}
+                \centering
+                {\scriptsize\bfseries\color{primaryblue} DATE:} \\[0.1cm]
+                \rule{3.0cm}{0.8pt} \\[0.1cm]
+                {\footnotesize \currentdate} \\[0.1cm]
+                \rule{3.0cm}{0.8pt}
+            \end{minipage}}%
+        }
+        \fancyfoot[R]{%
+            \raisebox{6.2cm}{\begin{minipage}[t]{0.40\textwidth}
+                \centering
+                {\scriptsize\bfseries\color{primaryblue} AUTHORIZED ENGINEER} \\
+                {\scriptsize\bfseries\color{primaryblue} SIGNATURE \& STAMP:} \\[0.2cm]
+                \rule{4.5cm}{0.8pt} \\[0.2cm]
+                \rule{4.5cm}{0.8pt}
+            \end{minipage}}%
+        }
+    }
+}
+
+% Custom commands for daily entry components
+\newcommand{\currentday}{}
+\newcommand{\setcurrentday}[1]{\renewcommand{\currentday}{#1}}
+\newcommand{\daypagecurrent}{\number\numexpr\value{page}-\getpagerefnumber{day:start-\currentday}+1\relax}
+\newcommand{\daypagetotal}{\number\numexpr\getpagerefnumber{day:end-\currentday}-\getpagerefnumber{day:start-\currentday}+1\relax}
+
+% Overlay per-day footer (outside bottom frame): Determine day by page range
+\newcount\daystart\newcount\dayend\newcount\daycurr\newcount\daytot
+\newcommand{\printdayfooter}{%
+  \begingroup
+  \def\out{}%
+  \newcommand{\setout}[1]{%
+    \daystart=\numexpr\getpagerefnumber{day:start-##1}\relax
+    \dayend=\numexpr\getpagerefnumber{day:end-##1}\relax
+    \ifnum\value{page}<\daystart\relax\else
+      \ifnum\value{page}>\dayend\relax\else
+        \daycurr=\numexpr\value{page}-\daystart+1\relax
+        \daytot=\numexpr\dayend-\daystart+1\relax
+        \gdef\out{DAY~##1\,\textemdash~PAGE~\the\daycurr/\the\daytot}%
+      \fi
+    \fi
+  }%
+  \setout{1}\ifx\out\empty\setout{2}\fi
+  \ifx\out\empty\setout{3}\fi
+  \ifx\out\empty\setout{4}\fi
+  \ifx\out\empty\setout{5}\fi
+  \ifx\out\empty\setout{6}\fi
+  \ifx\out\empty\setout{7}\fi
+  \ifx\out\empty\setout{8}\fi
+  \ifx\out\empty\setout{9}\fi
+  \ifx\out\empty\setout{10}\fi
+  \out
+  \endgroup
+}
+
+\newcommand{\dayentry}[3]{%
+    \clearpage
+    \setdaysubject{#2}
+    \setdaydate{#3}
+    \setcurrentday{#1}% store current day id for per-day paging
+    \updatefooter
+    \chapter{Day #1}
+    \label{day:start-#1}
+    \input{DAILY/#1.tex}
+    \label{day:end-#1}
+}
+
+% Weather icon commands
+\newcommand{\weathersunny}{\faIcon{sun}[regular]}
+\newcommand{\weathercloudy}{\faIcon{cloud}}
+\newcommand{\weatherrainy}{\faIcon{cloud-rain}}
+\newcommand{\weathersnowy}{\faIcon{snowflake}[regular]}
+
+% Custom environment for daily entry structure
+\newenvironment{dailyentry}[3]{%
+    \begin{center}
+        \begin{tikzpicture}
+            \fill[lightgray] (0,0) rectangle (13cm, 2cm);
+            \node[anchor=west] at (0.5cm, 1.5cm) {\Large\bfseries\color{darkgray} Date: #1};
+            \node[anchor=west] at (0.5cm, 1cm) {\large\color{weatherblue} Weather: #2};
+            \node[anchor=west] at (0.5cm, 0.5cm) {\large\color{darkgray} Temperature: #3};
+        \end{tikzpicture}
+    \end{center}
+    \vspace{1em}
+}{%
+    \vspace{2em}
+}
+
+% Work content environment with enhanced styling
+\newenvironment{workcontent}{%
+    \begin{center}
+        \colorbox{primaryblue}{\makebox[0.6\textwidth]{\color{white}\Large\bfseries WORK CONTENT}}
+    \end{center}
+    \vspace{1em}
+    \begin{quotation}
+        \setstretch{1.3}
+        \linenumbers
+        \resetlinenumber
+}{%
+        \nolinenumbers
+    \end{quotation}
+    \vspace{2em}
+}
+
+% Key tasks environment with line numbering
+\newcommand{\keytasks}[1]{%
+    \linenumbers
+    \resetlinenumber
+    \textbf{Key Tasks Completed:} #1
+    \nolinenumbers
+}
+
+% Approval section environment (robust, no tabularx dependency)
+\newenvironment{approvalsection}{%
+    \clearpage
+    \begin{center}
+        {\Large\bfseries\color{approvalgreen} SUPERVISOR APPROVAL}
+    \end{center}
+    \vspace{1em}
+    \noindent\begin{minipage}[t]{0.48\textwidth}
+        \scriptsize\textbf{Supervisor Name}\\[0.8cm]
+        \rule{\linewidth}{0.4pt}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \scriptsize\textbf{Date \& Signature}\\[0.8cm]
+        \rule{\linewidth}{0.4pt}
+    \end{minipage}
+    \vspace{2em}
+}{% end approvalsection
+}
+
+% Skills learned environment with professional styling
+\newenvironment{skillslearned}{%
+    \vspace{0.5em}
+    \noindent\colorbox{approvalgreen}{\makebox[0.45\textwidth]{\color{white}\bfseries Skills \& Knowledge Gained}}
+    \vspace{0.5em}
+    \begin{itemize}
+        \setstretch{1.2}
+}{%
+    \end{itemize}
+    \vspace{1em}
+}
+
+% Challenges faced environment with professional styling
+\newenvironment{challenges}{%
+    \vspace{0.5em}
+    \noindent\colorbox{red!80}{\makebox[0.35\textwidth]{\color{white}\bfseries Challenges Faced}}
+    \vspace{0.5em}
+    \begin{itemize}
+        \setstretch{1.2}
+}{%
+    \end{itemize}
+    \vspace{1em}
+}
+
+% Notes environment
+\newenvironment{dailynotes}{%
+    \subsection*{Additional Notes}
+    \begin{quote}
+        \itshape
+        \setstretch{1.3}
+}{%
+    \end{quote}
+}
+
+% Title page customization
+\title{
+    \vspace{-2cm}
+    \begin{center}
+        \begin{tikzpicture}
+            \fill[primaryblue] (0,0) rectangle (14cm, 4cm);
+            \node[white] at (8cm, 2cm) {
+                \begin{tabular}{c}
+                    {\Huge\bfseries INTERNSHIP DIARY} \\[0.5cm]
+                    {\Large Daily Work Log \& Progress Report}
+                \end{tabular}
+            };
+        \end{tikzpicture}
+    \end{center}
+    \vspace{2cm}
+}
+
+\author{
+    \Large
+    \textbf{Student Name:} [TO BE FILLED] \\[0.5cm]
+    \textbf{Student ID:} [TO BE FILLED] \\[0.5cm]
+    \textbf{Company:} [TO BE FILLED] \\[0.5cm]
+    \textbf{Department:} [TO BE FILLED] \\[0.5cm]
+    \textbf{Supervisor:} [TO BE FILLED] \\[0.5cm]
+    \textbf{Duration:} [TO BE FILLED] \\[1cm]
+    \vspace{1cm}
+    \textbf{AUTHORIZED ENGINEER} \\[0.5cm]
+    \textbf{Chamber Registration No:} \rule{6cm}{0.4pt} \\[0.5cm]
+    \textbf{Signature \& Stamp:} \\[1cm]
+    \rule{8cm}{0.4pt}
+}
+
+\date{\today}
+
+% Document begins
+\begin{document}
+
+% Front matter in roman numerals to avoid duplicate page anchors
+\frontmatter
+
+% Set default footer for all pages (including front matter)
+\setdaysubject{Internship Documentation}
+\setdaydate{\today}
+\updatefooter
+
+% Title page
+\maketitle
+
+% Internship Evaluation Form (Second Page)
+\clearpage
+\begin{center}
+    {\Large\bfseries INTERNSHIP EVALUATION FORM}
+\end{center}
+\vspace{1cm}
+
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{Student Information} & \textbf{Details} \\
+\hline
+Student Name & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+Student ID & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+University & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+Department & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+Academic Year & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{tabular}{|p{4cm}|p{8cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{Company Information} & \textbf{Details} \\
+\hline
+Company Name & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+Department & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+Supervisor & \rule{7cm}{0.4pt} \\[0.3cm]
+\hline
+Internship Duration & From: \rule{3cm}{0.4pt} To: \rule{3cm}{0.4pt} \\[0.3cm]
+\hline
+\end{tabular}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{tabular}{|p{2cm}|p{10cm}|}
+\hline
+\rowcolor{lightgray}
+\textbf{Photo} & \textbf{Evaluation} \\
+\hline
+& \\
+\rule{2cm}{3cm} & \textbf{Student Performance:} \\
+(Attach & \\
+Student & Excellent \(\square\) Good \(\square\) Average \(\square\) Below Average \(\square\) \\
+Photo) & \\
+& \textbf{Technical Skills:} \\
+& \\
+& Excellent \(\square\) Good \(\square\) Average \(\square\) Below Average \(\square\) \\
+& \\
+& \textbf{Communication Skills:} \\
+& \\
+& Excellent \(\square\) Good \(\square\) Average \(\square\) Below Average \(\square\) \\
+& \\
+& \textbf{Additional Comments:} \\
+& \\
+& \rule{9cm}{0.4pt} \\[0.2cm]
+& \rule{9cm}{0.4pt} \\[0.2cm]
+& \rule{9cm}{0.4pt} \\[0.2cm]
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{AUTHORIZED ENGINEER APPROVAL} \\[0.5cm]
+\textbf{Name:} \rule{6cm}{0.4pt} \\[0.5cm]
+\textbf{Chamber Registration No:} \rule{4cm}{0.4pt} \\[0.5cm]
+\textbf{Date:} \rule{3cm}{0.4pt} \\[1cm]
+\textbf{Signature \& Stamp:} \\[1cm]
+\rule{8cm}{0.4pt}
+\end{center}
+
+% Copyright and information page
+\vfill
+\begin{center}
+    \begin{tikzpicture}
+        \fill[lightgray] (0,0) rectangle (14cm, 6cm);
+        \node[anchor=center] at (8cm, 3cm) {
+            \begin{tabular}{c}
+                {\Large\bfseries IMPORTANT NOTICE} \\[1cm]
+                This diary documents daily internship activities \\
+                and serves as an official record of work completed. \\[0.5cm]
+                Each entry must be approved by the designated supervisor \\
+                and maintained according to company standards. \\[1cm]
+                {\footnotesize Note: This template can be duplicated as needed for extended internships.}
+            \end{tabular}
+        };
+    \end{tikzpicture}
+\end{center}
+\vfill
+
+\cleardoublepage
+
+% Table of contents
+\tableofcontents
+
+\cleardoublepage
+
+% Preface
+\chapter*{Preface}
+\phantomsection
+\addcontentsline{toc}{chapter}{Preface}
+
+This internship diary serves as a comprehensive record of daily activities, learning experiences, and professional development during the internship period. Each entry includes:
+
+\begin{itemize}
+    \item \textbf{Weather conditions} - Environmental context for the work day
+    \item \textbf{Work content} - Detailed description of tasks and activities performed
+    \item \textbf{Skills learned} - New competencies and knowledge acquired
+    \item \textbf{Challenges faced} - Obstacles encountered and problem-solving approaches
+    \item \textbf{Supervisor approval} - Official verification of completed work
+    \item \textbf{Additional notes} - Reflections, observations, and future planning
+\end{itemize}
+
+The diary is structured to provide both immediate documentation and long-term reference value for career development and academic assessment.
+
+\vfill
+
+\begin{center}
+    \textit{``The expert in anything was once a beginner.''} \\
+    \textbf{— Helen Hayes}
+\end{center}
+
+\cleardoublepage
+
+% Switch to main matter (arabic page numbers)
+\mainmatter
+
+% Daily entries section
+\part{Daily Entries}
+
+% Automatically include daily entries
+% The following commands will include 1.tex, 2.tex, etc.
+% Add more \dayentry commands as needed for additional days
+
+\dayentry{1}{Company Orientation}{Monday, August 25, 2025}
+\dayentry{2}{Quantity Surveying and Cost Estimation for Construction Projects}{Tuesday, August 26, 2025}
+\dayentry{3}{Project Quantity Calculations and Professional Relationship Building}{Wednesday, August 27, 2025}
+\dayentry{4}{Contract Analysis and Hakediş Automation}{Thursday, August 28, 2025}
+\dayentry{5}{Concrete Barrier Quantities and Progress Verification}{Friday, August 29, 2025}
+\dayentry{6}{ISDEMIR Port — Progress Payment Analysis (METEL \& DEMARC)}{Monday, September 1, 2025}
+\dayentry{7}{Afyon Airport Hangar Tender Pricing \& EKAP Review}{Tuesday, September 2, 2025}
+\dayentry{8}{Materials Dossier and Cross-Checks (Arsuz / BOTAŞ / Finance)}{Wednesday, September 3, 2025}
+\dayentry{9}{Comprehensive Building Quantity Analysis for Construction Pricing}{Thursday, September 4, 2025}
+\dayentry{10}{Auxiliary Structures and External Works Metraj Consolidation}{Friday, September 5, 2025}
+
+\cleardoublepage
+
+% Summary and reflection section
+\chapter*{Internship Summary}
+\phantomsection
+\addcontentsline{toc}{chapter}{Internship Summary}
+
+\section*{Overall Experience}
+\phantomsection
+\addcontentsline{toc}{section}{Overall Experience}
+
+This internship provided comprehensive exposure to construction engineering principles and practices. Through hands-on experience with quantity surveying, cost estimation, and project analysis, I developed a deeper understanding of the construction industry's technical and economic aspects.
+
+\section*{Key Achievements}
+\phantomsection
+\addcontentsline{toc}{section}{Key Achievements}
+
+\begin{itemize}
+    \item Successfully completed quantity surveying calculations for the Hatay Solid Waste Storage Facility workshop building project
+    \item Gained proficiency in technical drawing interpretation and material quantity calculations
+    \item Developed understanding of construction cost estimation and progress payment processes
+\end{itemize}
+
+\section*{Skills Development}
+\phantomsection
+\addcontentsline{toc}{section}{Skills Development}
+
+\begin{tabular}{|p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+\hline
+\rowcolor{lightgray}
+\textbf{Technical Skills} & \textbf{Soft Skills} & \textbf{Industry Knowledge} \\
+\hline
+Quantity Surveying & Professional Communication & Construction Processes \\
+Cost Estimation & Team Collaboration & Material Classification \\
+Technical Drawing Reading & Problem Solving & Project Management \\
+\hline
+\end{tabular}
+
+\section*{Future Goals}
+\phantomsection
+\addcontentsline{toc}{section}{Future Goals}
+
+Continue developing expertise in construction project management and cost estimation. Pursue advanced training in computer-aided quantity surveying tools and gain experience in large-scale infrastructure projects.
+
+\cleardoublepage
+
+% Appendices
+\appendix
+
+\chapter{Templates and Forms}
+\section{Daily Entry Template}
+This section contains blank templates that can be copied for future use.
+
+\section{Evaluation Criteria}
+Standard evaluation metrics and rubrics used during the internship.
+
+\chapter{Resources and References}
+\section{Useful Links}
+\begin{itemize}
+    \item Company website: \url{[TO BE FILLED]}
+    \item Department resources: \url{[TO BE FILLED]}
+    \item Learning materials: \url{[TO BE FILLED]}
+\end{itemize}
+
+\section{Contact Information}
+\begin{tabular}{|l|l|l|}
+\hline
+\rowcolor{lightgray}
+\textbf{Name} & \textbf{Position} & \textbf{Contact} \\
+\hline
+[Supervisor Name] & [Title] & [Email/Phone] \\
+\hline
+[HR Contact] & [Title] & [Email/Phone] \\
+\hline
+\end{tabular}
+
+\end{document}
