@@ -75,22 +75,40 @@ async function render(id) {
   // QR preview for current ID with robust loader
   (function drawQR(){
     const canvas = document.getElementById("qrCanvas");
+    const img = document.getElementById("qrImg");
     const previewId = (docId.textContent && docId.textContent !== "—") ? docId.textContent : (id || "");
     const url = previewId ? `https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=${encodeURIComponent(previewId)}` : "";
     if (!canvas || !url) return;
     function getLib(){ return window.QRCode || window.qrcode || null; }
-    function render(){
+    function renderCanvas(){
       const lib = getLib();
       if (!lib) return false;
-      const opts = { width: 120, margin: 1, color: { dark: "#e5e7eb", light: "#0f172a" } };
+      const opts = { width: 132, margin: 2, color: { dark: "#000000", light: "#ffffff" } };
       try {
         (lib.toCanvas ? lib : window.QRCode).toCanvas(canvas, url, opts, () => {});
+        if (img) img.style.display = "none";
+        canvas.style.display = "block";
         return true;
       } catch { return false; }
     }
-    if (render()) return;
-    // If lib not ready yet (defer), wait and retry
-    let tries = 0; const t = setInterval(() => { if (render() || ++tries > 20) clearInterval(t); }, 150);
+    function renderImg(){
+      const lib = getLib();
+      if (!lib || !img) return false;
+      const opts = { margin: 2, color: { dark: "#000000", light: "#ffffff" } };
+      try {
+        (lib.toDataURL ? lib : window.QRCode).toDataURL(url, opts, (err, dataUrl) => {
+          if (err) return;
+          img.src = dataUrl; img.style.display = "block"; canvas.style.display = "none";
+        });
+        return true;
+      } catch { return false; }
+    }
+    if (renderCanvas()) return;
+    // If lib not ready yet (defer), wait and retry (then fallback to img)
+    let tries = 0; const t = setInterval(() => {
+      if (renderCanvas()) { clearInterval(t); return; }
+      if (++tries > 12) { renderImg(); clearInterval(t); }
+    }, 150);
   })();
 
   // robust copy buttons with fallback + visual feedback
