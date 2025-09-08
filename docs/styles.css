@@ -66,3 +66,12 @@ main.container { display: grid; gap: 18px; grid-template-columns: repeat(auto-fi
 .qrwrap { margin-top: 10px; display: flex; align-items: center; gap: 10px; border: 1px dashed #334155; border-radius: 10px; padding: 8px; width: fit-content; background: rgba(255,255,255,.02); }
 .qrwrap canvas { background: #0f172a; border-radius: 8px; }
 .qr-caption { color: var(--muted); font-size: 0.85rem; }
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .kv { grid-template-columns: 1fr; }
+  .actions { gap: 8px; }
+  .actions .btn { flex: 1 1 100%; width: 100%; }
+  .code { font-size: 0.9rem; }
+  .qrwrap canvas { width: 96px; height: 96px; }
+}

@@ -72,14 +72,26 @@ async function render(id) {
   renderTimeline(docs.sort((a,b) => (a.updated_at < b.updated_at ? 1 : -1)));
 
   // QR preview for current ID
-  try {
-    const previewId = docId.textContent && docId.textContent !== "—" ? docId.textContent : (id || "");
+  // QR preview for current ID with robust loader
+  (function drawQR(){
     const canvas = document.getElementById("qrCanvas");
+    const previewId = (docId.textContent && docId.textContent !== "—") ? docId.textContent : (id || "");
     const url = previewId ? `https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=${encodeURIComponent(previewId)}` : "";
-    if (canvas && url && window.QRCode) {
-      window.QRCode.toCanvas(canvas, url, { width: 120, margin: 1, color: { dark: "#e5e7eb", light: "#0f172a" } }, () => {});
+    if (!canvas || !url) return;
+    function getLib(){ return window.QRCode || window.qrcode || null; }
+    function render(){
+      const lib = getLib();
+      if (!lib) return false;
+      const opts = { width: 120, margin: 1, color: { dark: "#e5e7eb", light: "#0f172a" } };
+      try {
+        (lib.toCanvas ? lib : window.QRCode).toCanvas(canvas, url, opts, () => {});
+        return true;
+      } catch { return false; }
     }
-  } catch {}
+    if (render()) return;
+    // If lib not ready yet (defer), wait and retry
+    let tries = 0; const t = setInterval(() => { if (render() || ++tries > 20) clearInterval(t); }, 150);
+  })();
 
   // robust copy buttons with fallback + visual feedback
   function copyText(text) {
