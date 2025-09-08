@@ -5,31 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Internship Diary — Verification</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-okaidia.min.css" />
   </head>
   <body>
-    <header>
-      <h1>Internship Diary — Verification</h1>
-      <p class="subtitle">Official Document Freshness & Authenticity</p>
+    <div class="bg">
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+      <div class="grid"></div>
+    </div>
+
+    <header class="container">
+      <div class="hero">
+        <div class="title">
+          <h1>Internship Diary Verification</h1>
+          <p class="subtitle">Professional authenticity check with document‑specific proof</p>
+        </div>
+        <div class="badge" id="badge">checking…</div>
+      </div>
     </header>
-    <main>
-      <section id="status" class="card">
-        <h2>Verification Status</h2>
+
+    <main class="container">
+      <section id="status" class="card lift">
+        <h2>Verification Result</h2>
         <div id="result" class="result"></div>
+        <div class="kv">
+          <div><span>Document ID</span><code id="docId">—</code></div>
+          <div><span>Hash (SHA‑256)</span><code id="docHash">—</code></div>
+          <div><span>Updated</span><code id="docUpdated">—</code></div>
+        </div>
+        <div class="actions">
+          <button id="copyId" class="btn">Copy ID</button>
+          <button id="copyURL" class="btn alt">Copy Verification URL</button>
+        </div>
       </section>
-      <section id="latest" class="card">
-        <h2>Latest Reference</h2>
-        <div id="latestRef" class="mono"></div>
+
+      <section id="latest" class="card lift">
+        <h2>Latest Reference (LaTeX)</h2>
+        <p class="hint">Below is a snapshot of the current main.tex used to generate the official PDF.</p>
+        <pre class="code"><code class="language-latex" id="latexPreview">loading…</code></pre>
       </section>
-      <section id="meta" class="card">
-        <h2>Document Metadata</h2>
+
+      <section id="meta" class="card lift">
+        <h2>Metadata & Registry</h2>
         <div id="metaRef" class="mono"></div>
       </section>
+
+      <section id="timeline" class="card lift">
+        <h2>Release Timeline</h2>
+        <ul id="releases" class="timeline"></ul>
+      </section>
+
+      <section id="snippets" class="card lift">
+        <h2>Technical Snippets</h2>
+        <div class="split">
+          <div>
+            <h3>cURL Verification</h3>
+            <pre class="code"><code class="language-bash">curl -s "https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=YOUR_ID"</code></pre>
+          </div>
+          <div>
+            <h3>LaTeX QR Embedding</h3>
+            <pre class="code"><code class="language-latex">% Outside frame QR (12mm)
+\node[anchor=center]
+  at ([xshift=7.5mm,yshift=7.5mm]current page.south west)
+  {\qrcode[height=12mm]{https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=\\docid}};</code></pre>
+          </div>
+        </div>
+      </section>
     </main>
-    <footer>
-      <p>&copy; 2025 — Engineering Faculty — Civil Engineering</p>
+
+    <footer class="container footer">
+      <p>© 2025 — Engineering Faculty — Civil Engineering • Built for professional authenticity</p>
     </footer>
+
     <script src="data/docs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-latex.min.js"></script>
     <script src="script.js"></script>
   </body>
   </html>
-
