@@ -47,7 +47,7 @@ async function render(id) {
 
   const latest = await fetchLatest();
   latestCode.textContent = latest.slice(0, 2000);
-  Prism.highlightElement(latestCode);
+  try { if (window.Prism && Prism.highlightElement) Prism.highlightElement(latestCode); } catch {}
 
   const latestHash = await sha256(latest);
 
@@ -119,16 +119,36 @@ async function render(id) {
     btn.style.filter = ok ? "brightness(1.15)" : "saturate(.6)";
     setTimeout(() => { btn.textContent = prev; btn.style.filter = ""; }, 900);
   }
+  // Copy handlers are set globally
+}
+function attachCopyHandlers() {
+  if (window.__copyBound) return; window.__copyBound = true;
   const btnCopyId = document.getElementById("copyId");
   const btnCopyURL = document.getElementById("copyURL");
-  if (btnCopyId) btnCopyId.addEventListener("click", (e) => {
-    e.preventDefault(); e.stopPropagation();
-    copyText((docId.textContent || "").trim()).then(() => flash(btnCopyId, true)).catch(() => flash(btnCopyId, false));
-  });
-  if (btnCopyURL) btnCopyURL.addEventListener("click", (e) => {
-    e.preventDefault(); e.stopPropagation();
-    copyText(location.href).then(() => flash(btnCopyURL, true)).catch(() => flash(btnCopyURL, false));
-  });
+  const docId = document.getElementById("docId");
+  function copyText(text) {
+    if (!text) return Promise.reject();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(() => legacyCopy(text));
+    }
+    return legacyCopy(text);
+  }
+  function legacyCopy(text) {
+    return new Promise((resolve) => {
+      const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand("copy"); } catch {}
+      document.body.removeChild(ta); resolve();
+    });
+  }
+  function flash(btn, ok=true) { if (!btn) return; const prev = btn.textContent; btn.textContent = ok ? "Copied!" : "Unable to copy"; setTimeout(() => { btn.textContent = prev; }, 900); }
+  if (btnCopyId) btnCopyId.addEventListener("click", (e) => { e.preventDefault(); copyText((docId.textContent || "").trim()).then(() => flash(btnCopyId, true)).catch(() => flash(btnCopyId, false)); });
+  if (btnCopyURL) btnCopyURL.addEventListener("click", (e) => { e.preventDefault(); copyText(location.href).then(() => flash(btnCopyURL, true)).catch(() => flash(btnCopyURL, false)); });
 }
 
-window.addEventListener("DOMContentLoaded", () => { render(q("doc")); });
+window.addEventListener("DOMContentLoaded", () => {
+  try { render(q("doc")); } catch {}
+  attachCopyHandlers();
+  // Ensure QR is drawn even if library loads late
+  setTimeout(() => { try { render(q("doc")); } catch {} }, 800);
+});
