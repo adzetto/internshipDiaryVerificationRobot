@@ -1,0 +1,101 @@
+\begin{dailyentry}{Friday, September 5, 2025}{\weathersunny\ Sunny}{26°C}
+
+\begin{workcontent}
+\textbf{Morning Activities (09:00 – 12:30):} I continued the comprehensive quantity surveying (metraj) effort from Day 9, focusing on finalizing the auxiliary structures and expanding the scope to external works. I completed detailed take-offs for the security gatehouse, utility buildings, and pump stations, then proceeded to roadways, parking areas, sidewalks, perimeter fencing, site drainage, and landscape elements. For trenches and duct banks, I clarified measurement bases (bank m$^{3}$ vs. compacted m$^{3}$), noted bedding and cover requirements, and logged deduction practices around manhole and chamber interfaces. I revisited the warehouse repetitive bay logic to ensure end bays, expansion joints, and connection details were consistently handled, and I standardized the templates so that typical modules scale reliably across the plan without double counting.
+
+\textbf{Afternoon Activities (13:30 – 17:45):} I consolidated all take-offs into the master workbook and performed cross-checks: drawing references on each line item, unit consistency (m / m$^{2}$ / m$^{3}$ / kg / adet), and explicit deductions. I mapped remaining groups to the green ledger A/B/C logic, making sure previous periods (B) and this period (C) reconcile to totals (A). I drafted the first version of the assumptions \& exclusions register for scope clarifications that could shift quantities or unit rates (e.g., trench backfill compaction classes, pavement thickness by loading category, and manhole depth classes). Finally, I prepared a pricing-ready summary by work section so unit rates can be applied directly in the next phase.
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[node distance=2.2cm]
+    \node[diarybox] (draw) {Drawings\\(Arch/Struct/Civil)};
+    \node[diarybox, right=of draw] (takeoff) {Take-off\\Sheets};
+    \node[diarybox, right=of takeoff] (recon) {Reconciliation\\Checks};
+    \node[diarybox, below=2.6cm of takeoff] (ledger) {Green Ledger\\A/B/C};
+    \node[diarybox, right=of recon] (pricing) {Pricing\\Preparation};
+    \draw[diaryarrow] (draw) -- (takeoff);
+    \draw[diaryarrow] (takeoff) -- (recon);
+    \draw[diaryarrow] (recon) -- (pricing);
+    \draw[diaryarrow] (takeoff) -- (ledger);
+    \draw[diaryarrow] (ledger) -- (pricing);
+\end{tikzpicture}%
+}
+\end{center}
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[node distance=1.9cm]
+    \node[laneTitle] (laneExt) {External Works};
+    \node[laneTitle, below=2.4cm of laneExt] (laneUtil) {Utilities};
+    \node[laneTitle, below=2.4cm of laneUtil] (laneQA) {QA/Checks};
+
+    % External works
+    \node[laneBox, right=2.2cm of laneExt] (e1) {Roads\\\& Parking};
+    \node[laneBox, right=of e1] (e2) {Sidewalks\\\& Curbs};
+    \node[laneBox, right=of e2] (e3) {Fencing\\\& Landscaping};
+
+    % Utilities
+    \node[laneBox, right=2.2cm of laneUtil] (u1) {Stormwater\\Trenches/MH};
+    \node[laneBox, right=of u1] (u2) {Duct Banks\\\& Chambers};
+    \node[laneBox, right=of u2] (u3) {Potable/Fire\\\& Irrigation};
+
+    % QA/Checks
+    \node[laneBox, right=2.2cm of laneQA] (q1) {Units\\Consistency};
+    \node[laneBox, right=of q1] (q2) {Deductions\\\& Openings};
+    \node[laneBox, right=of q2] (q3) {Ledger\\Mapping};
+
+    % Fit areas
+    \node[laneArea, fit=(laneExt)(e1)(e2)(e3), inner sep=10pt] {};
+    \node[laneArea, fit=(laneUtil)(u1)(u2)(u3), inner sep=10pt] {};
+    \node[laneArea, fit=(laneQA)(q1)(q2)(q3), inner sep=10pt] {};
+
+    % Flows
+    \draw[diaryarrow] (e1) -- (q1);
+    \draw[diaryarrow] (e2) -- (q2);
+    \draw[diaryarrow] (e3) -- (q3);
+    \draw[diaryarrow] (u1) -- (q1);
+    \draw[diaryarrow] (u2) -- (q2);
+    \draw[diaryarrow] (u3) -- (q3);
+\end{tikzpicture}%
+}
+\end{center}
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Quantity Reconciliation and Readiness Summary}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{4.6cm} p{4.2cm} p{6.0cm}}
+\toprule
+\textbf{Check} & \textbf{Method} & \textbf{Result / Notes} \\
+\midrule
+Drawing references completeness & Sheet \& view codes on each line & OK — 100\% tagged \\
+Units and conversions & m / m$^{2}$ / m$^{3}$ / kg / adet; rebar m→kg by Ø & OK — single conversions table applied \\
+Deductions practice & Openings, overlaps, joints & OK — documented per item group \\
+Roll-up integrity & Formula trace to summaries & OK — no broken links or shadow totals \\
+Ledger mapping (A/B/C) & Grouping by work section & In Progress — externals mapped and reconciled \\
+Assumptions \& exclusions & Log entries with impacts & Draft v1 ready for review \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\textbf{Today’s Deliverable (Office):} A consolidated, pricing-ready take-off workbook covering auxiliary structures and external works; a first-pass assumptions \& exclusions register; and updated green ledger mappings that reconcile previous periods with this period’s quantities for a clean transition to unit-rate application.
+\end{workcontent}
+
+\begin{skillslearned}
+\item[] I strengthened my ability to scale modular metraj templates across repetitive structures while preserving accuracy at end conditions and joints. I improved discipline in unit consistency and deductions, and I practiced mapping detailed take-offs to the green ledger A/B/C logic so financial reconciliation is straightforward. I also learned to surface assumptions early—especially for external works where loading categories, compaction classes, and depth bands drive quantities—and to frame them in a way that pricing can consume with minimal rework.
+\end{skillslearned}
+
+\begin{challenges}
+\item[] Maintaining traceability across multiple drawing sets during consolidation was demanding, particularly for utilities that cross several plans and details. Balancing speed and accuracy on external works required careful version control and rigorous notation for trenches, manholes, and pavement layers. The biggest challenge was ensuring end-bay and edge conditions in repetitive warehouses were neither undercounted nor double counted while keeping templates simple enough to reuse.
+\end{challenges}
+
+\begin{dailynotes}
+Today’s continuation of Day 9 brought the facility-wide metraj close to completion. The external works added many interfaces but also clarified how the site functions as a whole. Tomorrow I plan to finalize any open auxiliary items, freeze the consolidated quantities, and begin structured unit-rate application to generate the first pricing pass—starting with concrete, reinforcement, pavements, and stormwater systems.
+\end{dailynotes}
+
+\begin{approvalsection}
+\end{approvalsection}
+
+\end{dailyentry}

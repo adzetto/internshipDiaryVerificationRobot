@@ -1,0 +1,86 @@
+\begin{dailyentry}{Tuesday, September 2, 2025}{\weathersunny\ Sunny}{28°C}
+
+\begin{workcontent}
+\textbf{Morning Activities (09:00 – 16:00):} I completed a deep-dive pricing study for the “Construction of a Maintenance Hangar and Fire Extinguishing Building for AEW Aircraft at Afyon Airport.” The work started by breaking the tender into two cost centers (hangar complex and fire building) and mapping every position item to an authoritative unit price source. For each discipline, I reconciled descriptions, measurement rules, and execution notes with institutional price books from the Ministry of Environment and Urbanization, TEDAŞ, KGM, and PTT. Where no direct analogue existed, I constructed composite rates by building up labor, material, equipment, mobilization, and waste factors from first principles.
+
+I documented measurement bases explicitly. For earthworks, I distinguished bank excavation from compacted backfill and made clear whether quantities referred to in-situ or stockpile volumes. For pavements and slabs, I tied thickness classes to loading categories and finish requirements that impact placement method and curing regime. For steelwork, I referenced structural drawings to separate fabrication, transport, and erection costs, and I noted corrosion protection systems compatible with an airport environment. For MEP systems, I derived rates based on conduit/cable schedules, device densities, and functional testing allowances, including commissioning and as-built documentation.
+
+To keep the analysis auditable, I prepared a price alignment table linking the tender position, the institutional reference or build-up method, key measurement notes, and the adjusted unit price used in the estimate. This served as a bridge between the technical specification and the financial model.
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Sample Unit Price Alignment for Afyon Airport Hangar}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{4.5cm} p{1.2cm} p{3.0cm} p{2.2cm} p{3.2cm}}
+\toprule
+\textbf{Position Description} & \textbf{Unit} & \textbf{Reference} & \textbf{Adj. Price (TL)} & \textbf{Measurement Notes} \\
+\midrule
+Airport apron concrete 35 cm, finisher placed & m$^{2}$ & KGM Apron Std. + method adders & — & Thickness by axle load; early saw-cut; curing compound \\
+Structural steel fabrication and erection (hangar frame) & t & MoEU Steel + build-up & — & Includes shop drawings, transport, cranes, bolted connections \\
+Fire suppression piping (foam/water) incl. testing & m & PTT/MoEU equiv. + test & — & Hydrostatic tests; flushing; commissioning documentation \\
+PVC drainage manhole with cover & ea & MoEU Manhole & — & Depth class; bedding; watertight joints \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\textbf{Afternoon Activities (16:00 – 18:00):} I performed an EKAP scan to shortlist tenders aligned with our capabilities. For each candidate, I recorded submission windows, approximate budgets (if published), and scope fingerprints to brief the supervisors. I paid special attention to interface risks, atypical standards, and resource bottlenecks that would influence bid/no-bid decisions. The result was a concise pipeline snapshot ready for discussion.
+
+\begin{table}[ht]
+\centering
+\small
+\caption{EKAP Shortlist Overview}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{5.2cm} p{2.9cm} p{2.5cm} p{3.2cm}}
+\toprule
+\textbf{Tender} & \textbf{Sector} & \textbf{Submission} & \textbf{Screening Notes} \\
+\midrule
+Regional public building renovation & Building & — & Heavy MEP retrofit; night work constraints \\
+Municipal drainage improvement package & Infrastructure & — & Phased traffic control; utility interfaces \\
+Airport auxiliary systems upgrade & Aviation & — & Specialized standards; tight commissioning window \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[node distance=2.2cm]
+    \node[diarybox] (tender) {Afyon Airport\\Hangar Project};
+    \node[diarybox, right=of tender] (pricing) {Price Research\\Multiple Sources};
+    \node[diarybox, below left=1.4cm and 1.5cm of tender] (items) {Construction\\Items Analysis};
+    \node[diarybox, below right=1.4cm and 1.5cm of pricing] (standards) {Aviation\\Standards};
+    \node[diarybox, below=3.0cm of tender] (ekap) {EKAP Tender\\Review};
+    \node[diarybox, right=of ekap] (planning) {Tomorrow's\\Discussion};
+    \draw[diaryarrow] (tender) -- (items);
+    \draw[diaryarrow] (pricing) -- (standards);
+    \draw[diaryarrow] (items) -- (ekap);
+    \draw[diaryarrow] (standards) -- (planning);
+    \draw[diaryarrow] (tender) -- (ekap);
+    \draw[diaryarrow] (pricing) -- (planning);
+\end{tikzpicture}%
+}
+\end{center}
+
+\textbf{Technical Analysis Summary:} The Afyon Airport scope blends typical civil work with aviation-specific systems. Clear-span steelwork must achieve deflection limits under combined wind and crane service loads; slab joints and sealants must tolerate fuel and de-icing agents; and fire suppression demands coordinated foam-water systems with reliable detection, control, and acceptance testing. The pricing framework therefore couples institutional benchmarks with engineered build-ups and clearly stated measurement rules so downstream reconciliation and change control remain defensible.
+
+\textbf{Today's Deliverable (Office):} Completed comprehensive price analysis for the Afyon Airport maintenance hangar and fire extinguishing building tender, cross-referenced with multiple institutional price databases, and prepared strategic tender opportunity summaries from EKAP review for supervisor consultation.
+\end{workcontent}
+
+\begin{skillslearned}
+\item[] I strengthened my ability to translate technical specifications into auditable unit rates by combining institutional references with first-principles build-ups where gaps existed. I deepened my understanding of aviation-specific requirements, particularly how operational constraints and safety standards influence materials, methods, and testing. I also refined my tender screening approach on EKAP by capturing the few critical attributes that most directly affect bid strategy: interfaces, standards, commissioning windows, and resource peaks.
+\end{skillslearned}
+
+\begin{challenges}
+\item[] The breadth of the item list pushed time management, and the lack of direct analogues for several hangar and fire systems required careful build-ups and explicit assumptions. Maintaining consistency in measurement rules across disciplines while switching between institutional price logic and composite rates was demanding, and the EKAP scan had to be timeboxed to avoid analysis drift.
+\end{challenges}
+
+\begin{dailynotes}
+The complexity of this pricing analysis highlighted the importance of systematic organization and the value of maintaining comprehensive databases of institutional price references. Tomorrow's discussion will focus on the strategic opportunities identified through the EKAP review and potential project pursuit priorities.
+\end{dailynotes}
+
+\begin{approvalsection}
+\end{approvalsection}
+
+\end{dailyentry}

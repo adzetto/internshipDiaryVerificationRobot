@@ -1,0 +1,185 @@
+\begin{dailyentry}{Tuesday, August 26, 2025}{\weathersunny\ Sunny}{28°C}
+
+\begin{workcontent}
+Today, on my second internship day, I was introduced in depth to one of the fundamental pillars of civil engineering: quantity surveying (metraj). When I arrived at the office early in the morning, my supervisor began the day by explaining what quantity surveying is and why it holds such critical importance. I learned that quantity surveying is not merely a simple measurement process, but actually forms the economic backbone of the entire construction project.
+
+Before noon, I tried to understand the differences between rough and finishing works. I learned in detail that rough works encompass reinforced concrete elements that form the structural skeleton of the building such as foundations, columns, beams, and slabs, while finishing works include completion tasks such as plastering, painting, cladding, and installations. My supervisor emphasized that this distinction is not merely theoretical, but plays a critical role at every stage from work programming to cost calculations.
+
+I had the opportunity to learn about the tenders our company has recently won. The Hatay Metropolitan Municipality Arsuz District Solid Waste Storage Facility project particularly caught my attention. I learned that this project is in the final design phase and is being carried out by MNE Project Engineering and Consultancy Ltd. I decided to work on the workshop building, which is part of the project.
+
+In the afternoon, I began examining the workshop building project drawings. First, I analyzed the architectural plans and determined that the building is an industrial structure with rectangular planning measuring 14.9m x 10.4m. I observed that the structure is a reinforced concrete frame system resting on a raft foundation, the roof will be covered with sandwich panels, and the building features both aluminum joinery and special sliding folding doors.
+
+In the quantity surveying process, I started with the structural elements. I performed calculations for both lower and upper reinforcement in X and Y directions for the raft foundation. I calculated that 14 mm diameter reinforcement would be used, requiring a total of 799.2 meters with 54 bars in the X direction, and 799.2 meters with 76 bars in the Y direction. During these calculations, I learned that I need to consider cover requirements and lap lengths.
+
+I noticed that columns receive different diameters of reinforcement at different positions. I observed that the main longitudinal reinforcements are 16 mm diameter with varying lengths, and stirrup reinforcements are planned as 10 mm diameter. Particularly for columns coded as Position 2, I calculated a total of 673.4 meters of reinforcement with 140 bars of 4.81 meter length.
+
+For beam reinforcements, I determined that variable diameter reinforcement from 8mm to 16mm would be used. I calculated that the most used would be 16 mm diameter reinforcement (1250 meters), followed by 14 mm diameter reinforcement (1050 meters). I learned that Q188/188 mesh reinforcement would be used for slab reinforcement, requiring a total material weight of 1036 kg.
+
+While calculating formwork quantities, I estimated 89.6 m² for beam formwork and 153.93 m² area for slab formwork. I calculated 294.64 m² area for external facade scaffolding by multiplying the building perimeter by height. I found the volume of slab soffit formwork scaffolding as 813.54 m³ using the area times height formula.
+
+For plastering works, I calculated 342.64 m² for internal plastering, 153.93 m² for ceiling plastering, and 215.06 m² area for external plastering. I need to note that in these calculations, I deducted door and window openings to find net areas.
+
+In the miscellaneous works section, I calculated 5.08 m³ of C20 grade concrete for sidewalk concrete and 1.31 m³ of C25 grade concrete for ramp concrete. I calculated 192.39 m² area for sandwich panel roof covering based on the sloped roof area.
+
+In the final part of the day, I learned about marble thickness concepts. I understood that in marble and natural stone claddings, thickness generally varies between 2-3 cm, and this thickness is important from both aesthetic and static perspectives. I learned that wet volume refers to spaces that will be in contact with water such as bathrooms and kitchens.
+
+I understood that each project drawing name carries specific meaning. I grasped that the "WORKSHOP BUILDING 369.03 LEVEL FORMWORK PLAN" drawing shows the formwork plan at ground level, while the "374.23 LEVEL FORMWORK AND REINFORCEMENT PLAN" drawing shows details at slab level. I learned that structural design calculation reports, beam details, and system sections each explain different technical aspects of the project.
+
+Through this detailed quantity surveying work, I experienced how a building transforms from drawings on paper to actual material lists. I now better understand that behind each line and each dimension lie concrete materials and labor calculations.
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[node distance=2.2cm]
+    \node[diarybox] (draw) {Project\\Drawings};
+    \node[diarybox, right=of draw] (identify) {Identify\\Elements};
+    \node[diarybox, right=of identify] (calc) {Calculate\\Quantities};
+    \node[diarybox, below=1.4cm of identify] (summary) {Summarize\\by Element/Area};
+    \node[diarybox, right=3.0cm of summary] (qa) {QA\\Cross-Checks};
+    \node[diarybox, right=of calc] (cost) {Cost\\Estimation\\(Next)};
+    \draw[diaryarrow] (draw) -- (identify) node[midway, above]{\scriptsize Read};
+    \draw[diaryarrow] (identify) -- (calc) node[midway, above]{\scriptsize Rules};
+    \draw[diaryarrow] (identify) -- (summary) node[midway, right]{\scriptsize Group};
+    \draw[diaryarrow] (calc) -- (cost) node[midway, above]{\scriptsize Use};
+    \draw[diaryarrow] (summary) -- (qa) node[midway, above]{\scriptsize Verify};
+\end{tikzpicture}%
+}
+\end{center}
+
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[node distance=1.8cm]
+    % Lane titles
+    \node[laneTitle] (laneDraw) {Drawings};
+    \node[laneTitle, below=2.4cm of laneDraw] (laneTake) {Takeoff};
+    \node[laneTitle, below=2.4cm of laneTake] (laneQA) {QA / Control};
+    \node[laneTitle, below=2.4cm of laneQA] (laneCost) {Cost};
+
+    % Drawings lane
+    \node[laneBox, right=2.2cm of laneDraw] (dw1) {Architectural\\Plans};
+    \node[laneBox, right=of dw1] (dw2) {Structural\\Details};
+
+    % Takeoff lane
+    \node[laneBox, right=2.2cm of laneTake] (to1) {Identify\\Elements};
+    \node[laneBox, right=of to1] (to2) {Calculate\\Quantities};
+
+    % QA lane
+    \node[laneBox, right=2.2cm of laneQA] (qa1) {Summarize\\by Area/Element};
+    \node[laneBox, right=of qa1] (qa2) {Cross\\Checks};
+
+    % Cost lane
+    \node[laneBox, right=2.2cm of laneCost] (cs1) {Unit\\Rates};
+    \node[laneBox, right=of cs1] (cs2) {Estimation\\(Next)};
+
+    % Lane backgrounds
+    \node[laneArea, fit=(laneDraw)(dw1)(dw2), inner sep=10pt] {};
+    \node[laneArea, fit=(laneTake)(to1)(to2), inner sep=10pt] {};
+    \node[laneArea, fit=(laneQA)(qa1)(qa2), inner sep=10pt] {};
+    \node[laneArea, fit=(laneCost)(cs1)(cs2), inner sep=10pt] {};
+
+    % Flows
+    \draw[diaryarrow] (dw1) -- (to1);
+    \draw[diaryarrow] (dw2) -- (to2);
+    \draw[diaryarrow] (to1) -- (qa1);
+    \draw[diaryarrow] (to2) -- (qa2);
+    \draw[diaryarrow] (qa2) -- (cs1);
+\end{tikzpicture}%
+}
+\end{center}
+\end{workcontent}
+
+\begin{skillslearned}
+\item[] I acquired advanced quantity surveying calculation techniques, developing the ability to calculate reinforcement quantities for raft foundations, columns, beams, and slabs with particular experience in classifying reinforcement of different diameters according to position numbers. I developed technical drawing reading skills to recognize different types of construction drawings and understand their purposes, distinguishing between formwork plans, reinforcement plans, and detail drawings. I grasped material classification concepts including the distinction between rough works and finishing works and their critical role in work programming and cost calculations. I mastered calculation methodology principles emphasizing accuracy and systematic approaches in quantity surveying, learning fundamental rules such as deducting openings and finding net areas. I progressed in understanding project coordination through the complementary structure of architectural, structural, and MEP projects and the necessity of interdisciplinary work.
+\end{skillslearned}
+
+\begin{challenges}
+\item[] Complex reinforcement calculations presented significant difficulties, particularly in calculating column reinforcement at different positions and considering lap lengths, which I overcame through guidance from experienced engineers. Project coordination challenges arose when performing consistency checks among dozens of drawings and identifying contradictory situations, requiring development of systematic approaches for resolution. Time management proved challenging as quantity surveying work is too comprehensive to be completed efficiently in one day, necessitating prioritization strategies to focus on the most critical sections first. Calculation accuracy concerns emerged due to high error risks in manual calculations, highlighting the need to develop robust control mechanisms for verification and quality assurance.
+\end{challenges}
+
+\vspace{1cm}
+
+\subsection*{Workshop Building Quantity Survey Summary}
+
+\begin{table}[ht]
+\centering
+\caption{Workshop Building Primary Material Quantities}
+\begin{tabular}{@{}p{5.5cm}ccc@{}}
+\toprule
+\textbf{Material/Work Item} & \textbf{Unit} & \textbf{Quantity} & \textbf{Total} \\
+\midrule
+Raft Found. Lower Reinf. (X dir.) & m & 54 $\times$ 14.8 & 799.2 \\
+Raft Found. Lower Reinf. (Y dir.) & m & 76 $\times$ 10.4 & 790.4 \\
+Raft Found. Upper Reinf. (X dir.) & m & 54 $\times$ 14.8 & 799.2 \\
+Raft Found. Upper Reinf. (Y dir.) & m & 76 $\times$ 10.4 & 790.4 \\
+\midrule
+Column Long. Reinf. (Pos 2) & m & 140 $\times$ 4.81 & 673.4 \\
+Column Long. Reinf. (Pos 7) & m & 140 $\times$ 3.5 & 490.0 \\
+\midrule
+Beam Reinforcement \o16 & m & --- & 1250 \\
+Beam Reinforcement \o14 & m & --- & 1050 \\
+Beam Reinforcement \o8 & m & --- & 1055 \\
+\midrule
+Slab Reinforcement Q188/188 & kg & --- & 1036 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Concrete and Formwork Quantities}
+\begin{tabular}{@{}p{5.5cm}ccc@{}}
+\toprule
+\textbf{Work Item} & \textbf{Unit} & \textbf{Calculation} & \textbf{Quantity} \\
+\midrule
+Sidewalk Concrete (C20) & m\textsuperscript{3} & 1 $\times$ 50.8 $\times$ 0.1 & 5.08 \\
+Ramp Concrete (C25) & m\textsuperscript{3} & 3.5 $\times$ 2.5 $\times$ 0.15 & 1.31 \\
+\midrule
+Beam Formwork & m\textsuperscript{2} & (Estimated) & 89.6 \\
+Slab Formwork & m\textsuperscript{2} & (Excl. columns) & 153.93 \\
+Ext. Facade Scaffolding & m\textsuperscript{2} & 50.8 $\times$ 5.8 & 294.64 \\
+Slab Soffit Formwork Scaff. & m\textsuperscript{3} & 14.9 $\times$ 10.5 $\times$ 5.2 & 813.54 \\
+\midrule
+Internal Plastering & m\textsuperscript{2} & (Int. walls minus openings) & 342.64 \\
+Ceiling Plastering & m\textsuperscript{2} & (Net ceiling area) & 153.93 \\
+External Plastering & m\textsuperscript{2} & (Ext. walls minus openings) & 215.06 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{1cm}
+
+\subsection*{Quantity Surveying and Cost Estimation Relationship}
+
+One of the important concepts I learned today is the quantity surveying -- cost estimation -- progress payment trilogy. I grasped that quantity surveying forms the foundation of cost estimation, while cost estimation provides the economic evaluation of the project. In this process:
+
+\begin{center}
+\begin{tikzpicture}[node distance=3cm, auto]
+    % Nodes
+    \node [draw, rectangle, fill=lightgray, minimum width=2.5cm, text width=2.3cm, align=center] (metraj) {QUANTITY\\SURVEYING};
+    \node [draw, rectangle, fill=lightgray, minimum width=2.5cm, text width=2.3cm, align=center, right=of metraj] (kesif) {COST\\ESTIMATION};
+    \node [draw, rectangle, fill=lightgray, minimum width=2.5cm, text width=2.3cm, align=center, right=of kesif] (hakedis) {PROGRESS\\PAYMENTS};
+    
+    % Arrows
+    \draw [->] (metraj) -- (kesif) node [midway, above] {Unit Prices};
+    \draw [->] (kesif) -- (hakedis) node [midway, above] {Work Schedule};
+    
+    % Descriptions
+    \node [below=0.5cm of metraj] {\scriptsize Quantities};
+    \node [below=0.5cm of kesif] {\scriptsize Costs};
+    \node [below=0.5cm of hakedis] {\scriptsize Payments};
+\end{tikzpicture}
+\end{center}
+
+I understood that quantity surveying is not just a numerical calculation, but also the first step in transforming the project into physical reality. Every figure I calculated will correspond to actual materials and labor on site.
+
+\begin{dailynotes}
+Today's quantity surveying work showed me how detail-oriented a profession civil engineering is. Even a small calculation error can significantly affect the project budget. The difficulties I experienced particularly in reinforcement quantities showed that I need more practice in this area.
+
+Tomorrow I plan to complete this quantity survey and start cost estimation calculations. I also learned that I might have the opportunity to observe the construction process of a similar structure on site. This opportunity will be very valuable for seeing my theoretical knowledge in practice.
+
+I realized that learning the standard formats of quantity surveying tables is also important. I want to learn to use computer-aided programs instead of handwritten calculations.
+\end{dailynotes}
+
+\begin{approvalsection}
+\end{approvalsection}
+
+\end{dailyentry}
