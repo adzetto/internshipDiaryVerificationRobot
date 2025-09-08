@@ -1,0 +1,5 @@
+# Release History
+
+- Columns: date • id • sha256 • commit
+
+- 2025-09-05 • IZTECH-INT-2025-09-05-D10 • 52c2592d7d5c3a5aa24afbb0d52e752b5b10dee1e5695c943ce610bdb87ea274 • 701fb5f
