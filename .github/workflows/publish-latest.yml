@@ -1,0 +1,62 @@
+name: Publish latest main.tex
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Copy latest main.tex to docs
+        run: |
+          mkdir -p docs/latest
+          cp -f main.tex docs/latest/main.tex
+          if [ -f main.pdf ]; then cp -f main.pdf docs/latest/main.pdf; fi
+
+      - name: Update docs registry from main.tex
+        run: |
+          node scripts/update-docs-registry.mjs
+
+      - name: Append history entry and commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DOCID=$(sed -n 's/.*\\newcommand{\\docid}{\(.*\)}.*/\1/p' main.tex | head -n1)
+          UPDATED=$(echo "$DOCID" | sed -n 's/.*\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\).*/\1/p')
+          HASH=$(openssl sha256 docs/latest/main.tex | awk '{print $2}')
+          echo "DOCID=${DOCID}" >> $GITHUB_ENV
+          echo "UPDATED=${UPDATED}" >> $GITHUB_ENV
+          echo "HASH=${HASH}" >> $GITHUB_ENV
+          # Append/maintain a machine-readable history log
+          mkdir -p docs
+          HISTORY=docs/HISTORY.md
+          if [ ! -f "$HISTORY" ]; then
+            echo "# Release History" > "$HISTORY"
+            echo "" >> "$HISTORY"
+            echo "- Columns: date • id • sha256 • commit" >> "$HISTORY"
+            echo "" >> "$HISTORY"
+          fi
+          COMMIT_SHA=$(git rev-parse --short HEAD)
+          echo "- ${UPDATED:-$(date +%F)} • ${DOCID:-unknown} • ${HASH:-none} • ${COMMIT_SHA}" >> "$HISTORY"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "No changes to commit."
+          else
+            git add docs/latest/main.tex docs/latest/main.pdf || true
+            git add docs/data/docs.js "$HISTORY"
+            git commit -m "chore(publish): ${DOCID:-unknown} | sha256:${HASH:-none} | date:${UPDATED:-$(date +%F)}"
+            git push
+          fi

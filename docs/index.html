@@ -19,7 +19,7 @@
       <div class="hero">
         <div class="title">
           <h1>Internship Diary Verification</h1>
-          <p class="subtitle">Professional authenticity check with document‑specific proof</p>
+          <p class="subtitle">Authenticity check with document‑specific proof</p>
         </div>
         <div class="badge" id="badge">checking…</div>
       </div>
@@ -35,8 +35,12 @@
           <div><span>Updated</span><code id="docUpdated">—</code></div>
         </div>
         <div class="actions">
-          <button id="copyId" class="btn">Copy ID</button>
-          <button id="copyURL" class="btn alt">Copy Verification URL</button>
+          <button id="copyId" class="btn" type="button" title="Copy Document ID">Copy ID</button>
+          <button id="copyURL" class="btn alt" type="button" title="Copy current verification URL">Copy Verification URL</button>
+        </div>
+        <div class="qrwrap">
+          <canvas id="qrCanvas" width="120" height="120" aria-label="QR preview"></canvas>
+          <div class="qr-caption">QR preview for current ID</div>
         </div>
       </section>
 
@@ -79,6 +83,7 @@
     </footer>
 
     <script src="data/docs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-latex.min.js"></script>
     <script src="script.js"></script>

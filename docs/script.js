@@ -71,9 +71,52 @@ async function render(id) {
   metaRef.textContent = JSON.stringify(rec || { id: id || "(none)", current: false }, null, 2);
   renderTimeline(docs.sort((a,b) => (a.updated_at < b.updated_at ? 1 : -1)));
 
-  // copy buttons
-  document.getElementById("copyId").onclick = () => navigator.clipboard.writeText(docId.textContent);
-  document.getElementById("copyURL").onclick = () => navigator.clipboard.writeText(location.href);
+  // QR preview for current ID
+  try {
+    const previewId = docId.textContent && docId.textContent !== "—" ? docId.textContent : (id || "");
+    const canvas = document.getElementById("qrCanvas");
+    const url = previewId ? `https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=${encodeURIComponent(previewId)}` : "";
+    if (canvas && url && window.QRCode) {
+      window.QRCode.toCanvas(canvas, url, { width: 120, margin: 1, color: { dark: "#e5e7eb", light: "#0f172a" } }, () => {});
+    }
+  } catch {}
+
+  // robust copy buttons with fallback + visual feedback
+  function copyText(text) {
+    if (!text) return Promise.reject();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(() => legacyCopy(text));
+    }
+    return legacyCopy(text);
+  }
+  function legacyCopy(text) {
+    return new Promise((resolve) => {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      const range = document.createRange(); range.selectNodeContents(ta);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      try { document.execCommand("copy"); } catch {}
+      sel.removeAllRanges(); document.body.removeChild(ta); resolve();
+    });
+  }
+  function flash(btn, ok=true) {
+    if (!btn) return;
+    const prev = btn.textContent;
+    btn.textContent = ok ? "Copied!" : "Unable to copy";
+    btn.style.filter = ok ? "brightness(1.15)" : "saturate(.6)";
+    setTimeout(() => { btn.textContent = prev; btn.style.filter = ""; }, 900);
+  }
+  const btnCopyId = document.getElementById("copyId");
+  const btnCopyURL = document.getElementById("copyURL");
+  if (btnCopyId) btnCopyId.addEventListener("click", (e) => {
+    e.preventDefault(); e.stopPropagation();
+    copyText((docId.textContent || "").trim()).then(() => flash(btnCopyId, true)).catch(() => flash(btnCopyId, false));
+  });
+  if (btnCopyURL) btnCopyURL.addEventListener("click", (e) => {
+    e.preventDefault(); e.stopPropagation();
+    copyText(location.href).then(() => flash(btnCopyURL, true)).catch(() => flash(btnCopyURL, false));
+  });
 }
 
 window.addEventListener("DOMContentLoaded", () => { render(q("doc")); });

@@ -166,15 +166,18 @@
         % Per-day page indicator (outside bottom-right frame; nudged left)
         \node[anchor=east, font=\scriptsize\bfseries, color=darkgray]
             at ([xshift=-15mm,yshift=12mm]current page.south east) {\printdayfooter};
+        % Compact sheet code label (mirrored above per-day counter)
+        \node[anchor=east, font=\scriptsize\bfseries, color=darkgray]
+            at ([xshift=-15mm,yshift=22mm]current page.south east) {Sheet: \docid};
 
         % QR codes for verification (outside outer frame)
         % Define document ID for QR link
         \newcommand{\docid}{IZTECH-INT-2025-09-05-D10}
-        % Left QR (bottom-left outside frame)
-        \node[anchor=west] at ([xshift=15mm,yshift=30mm]current page.south west)
+        % Left QR (outside frame, centered in band between frame and page edge)
+        \node[anchor=center] at ([xshift=7.5mm,yshift=7.5mm]current page.south west)
             {\qrcode[height=12mm]{https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=\docid}};
-        % Right QR (bottom-right outside frame)
-        \node[anchor=east] at ([xshift=-15mm,yshift=30mm]current page.south east)
+        % Right QR (outside frame, centered in band between frame and page edge)
+        \node[anchor=center] at ([xshift=-7.5mm,yshift=7.5mm]current page.south east)
             {\qrcode[height=12mm]{https://adzetto.github.io/internshipDiaryVerificationRobot/?doc=\docid}};
     \end{tikzpicture}
 }
